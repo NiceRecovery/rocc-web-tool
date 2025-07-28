@@ -132,6 +132,26 @@ export class RoccController {
         }
     }
 
+    async getTime() {
+        try {
+            const response = await this.sendCommand('time?');
+            return response.trim();
+        } catch (err) {
+            console.error('getTime failed:', err);
+            return false;
+        }
+    }
+
+    async clearFile(filename) {
+        try {
+            const response = await this.sendCommand('fclear', filename);
+            return response === 'OK';
+        } catch (err) {
+            console.error('clearFile failed:', err);
+            return false;
+        }
+    }
+
     async readFile(srcFilename) {
         try {
             const sizeStr = await this.sendCommand('fsize', srcFilename);

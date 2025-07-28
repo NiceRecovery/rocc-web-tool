@@ -7,18 +7,7 @@ document.getElementById('connectButton').addEventListener('click', async () => {
   log('Connected');
   const success = await rocc.authenticate();
   log('Authentication ' + (success ? 'succeeded' : 'failed'));
-//   log('Setting time...');
-//   const timeSet = await rocc.setTime();
-//   log('Time ' + (timeSet ? 'set successfully' : 'failed to set'));
-//   log('Downloading file...');
-//   const success1 = await rocc.readTextFile('roccdat.csv');
-//   log(success1 ? 'File downloaded' : 'Failed to read file');
 });
-
-// document.getElementById('disconnectButton').addEventListener('click', async () => {
-//   await rocc.disconnect();
-//   log('Disconnected');
-// });
 
 document.getElementById('readFileButton').addEventListener('click', async () => {
   //const filename = prompt('Enter filename to read:');
@@ -26,16 +15,19 @@ document.getElementById('readFileButton').addEventListener('click', async () => 
   log(success ? 'File downloaded' : 'Failed to read file');
 });
 
+document.getElementById('clearFileButton').addEventListener('click', async () => {
+  const success = await rocc.clearFile('roccdat.csv');
+  log(success ? 'File cleared' : 'Failed to clear file');
+});
+
 document.getElementById('setTimeButton').addEventListener('click', async () => {
   const success = await rocc.setTime();
   log('Time ' + (success ? 'set successfully' : 'failed to set'));
 });
 
-document.getElementById('sendButton').addEventListener('click', async () => {
-  const cmd = document.getElementById('inputText').value;
-  const response = await rocc.sendCommand(cmd);
-  log('> ' + cmd);
-  log('< ' + response);
+document.getElementById('getTimeButton').addEventListener('click', async () => {
+  const time = await rocc.getTime();
+  log('Current time: ' + time);
 });
 
 function log(message) {
